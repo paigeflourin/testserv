@@ -4,6 +4,10 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Web.Http;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
+using System.Security.Claims;
+
 
 namespace SIT_QnA_APIService.Controllers
 {
@@ -11,31 +15,38 @@ namespace SIT_QnA_APIService.Controllers
     [RoutePrefix("api/qnaMaker")]
     public class QnAMakerController : ApiController
     {
-        // GET api/<controller>
+        [HttpGet]
+        [Authorize]
         public IEnumerable<string> Get()
         {
-            return new string[] { "value1", "value2" };
+            return null;
         }
 
-        // GET api/<controller>/5
-        public string Get(int id)
-        {
-            return "value";
-        }
+        // GET api/<controller>
+        //public IEnumerable<string> Get()
+        //{
+        //    return new string[] { "value1", "value2" };
+        //}
 
-        // POST api/<controller>
-        public void Post([FromBody]string value)
-        {
-        }
+        //// GET api/<controller>/5
+        //public string Get(int id)
+        //{
+        //    return "value";
+        //}
 
-        // PUT api/<controller>/5
-        public void Put(int id, [FromBody]string value)
-        {
-        }
+        //// POST api/<controller>
+        //public void Post([FromBody]string value)
+        //{
+        //}
 
-        // DELETE api/<controller>/5
-        public void Delete(int id)
-        {
-        }
+        //// PUT api/<controller>/5
+        //public void Put(int id, [FromBody]string value)
+        //{
+        //}
+
+        //// DELETE api/<controller>/5
+        //public void Delete(int id)
+        //{
+        //}
     }
 }
