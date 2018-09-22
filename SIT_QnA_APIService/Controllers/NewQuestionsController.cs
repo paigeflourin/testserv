@@ -13,8 +13,8 @@ using System.Configuration;
 namespace SIT_QnA_APIService.Controllers
 {
     [Authorize]
-    [RoutePrefix("api/newQuestions")]
-    public class QnANewQuestionsStorageController : ApiController
+    [RoutePrefix("api/NewQuestions")]
+    public class NewQuestionsController : ApiController
     {
 
         private static string _connectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
@@ -34,7 +34,7 @@ namespace SIT_QnA_APIService.Controllers
             TableContinuationToken token = null;
      
 
-            var query = table.CreateQuery<NewQuestionsEntity>().Where(x => x.PartitionKey == partition.PartitionKey);
+            var query = table.CreateQuery<NewQuestionsEntity>();
 
             do
             {
@@ -51,6 +51,12 @@ namespace SIT_QnA_APIService.Controllers
             return _records;
         }
 
+        [HttpGet]
+        [Route("test")]
+        public string Test()
+        {
+            return "Hello This is a test";
+        }
 
 
         // GET api/<controller>
