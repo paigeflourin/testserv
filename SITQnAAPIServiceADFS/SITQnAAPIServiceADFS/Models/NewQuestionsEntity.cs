@@ -17,7 +17,7 @@ namespace SITQnAAPIServiceADFS.Models
 
         public NewQuestionsEntity() { }
 
-        public DateTime PostedBy { get; set; }
+        public string PostedBy { get; set; }
         public DateTime PostedDate { get; set; }
         public string Contact { get; set; }
        // public string Question { get; set; }
