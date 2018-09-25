@@ -20,7 +20,8 @@ namespace SITQnAAPIServiceADFS.Models
         public string PostedBy { get; set; }
         public DateTime PostedDate { get; set; }
         public string Contact { get; set; }
-       // public string Question { get; set; }
+        public string Status { get; set; }
+        //public string Question { get; set; }
 
     }
 }

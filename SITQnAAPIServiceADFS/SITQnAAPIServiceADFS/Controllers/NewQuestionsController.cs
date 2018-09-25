@@ -13,19 +13,15 @@ using Microsoft.Azure.Storage;
 
 namespace SITQnAAPIServiceADFS.Controllers
 {
+    [RoutePrefix("api/newquestions")]
     public class NewQuestionsController : ApiController
     {
         private static string _connectionString = ConfigurationManager.AppSettings["StorageConnectionString"];
 
-        // [HttpGet]
-        // public IEnumerable<string> GetTest()
-        //  {
-        //       return new string[] { "value1", "value2" };
-        // }
-
 
         [HttpGet]
-       public List<NewQuestionsEntity> GetRecords()
+        [Route("allquestions")]
+        public List<NewQuestionsEntity> GetRecords()
         {
             List<NewQuestionsEntity> _records = new List<NewQuestionsEntity>();
 
@@ -48,6 +44,7 @@ namespace SITQnAAPIServiceADFS.Controllers
         }
 
         [HttpDelete]
+        [Route("question")]
         public string DeleteRecord(NewQuestionsEntity entity)
         {
             string res; 
@@ -73,6 +70,37 @@ namespace SITQnAAPIServiceADFS.Controllers
             }
             return res;
         } 
+
+        [HttpPatch]
+        [Route("question")]
+        public string ResolveRecord([FromBody]NewQuestionsEntity entity)
+        {
+            string res;
+            CloudStorageAccount storageAccount = CloudStorageAccount.Parse(_connectionString);
+            CloudTableClient tableClient = storageAccount.CreateCloudTableClient();
+            CloudTable table = tableClient.GetTableReference("NewQuestions");
+            TableOperation retrieveOperation = TableOperation.Retrieve<NewQuestionsEntity>(entity.PartitionKey, entity.RowKey);
+            TableResult retrievedResult = table.Execute(retrieveOperation);
+
+            NewQuestionsEntity updateEntity = (NewQuestionsEntity)retrievedResult.Result;
+
+            if (updateEntity != null)
+            {
+                updateEntity.Status = "Resolved";
+                TableOperation updateOperation = TableOperation.Replace(updateEntity);
+                table.Execute(updateOperation);
+
+                Console.WriteLine("Entity updated.");
+                res = "Entity updated";
+            }
+            else
+            {
+                Console.WriteLine("Entity could not be retrieved.");
+                res = "Entity could not be retrieved.";
+            }
+
+            return res;
+        }
 
       
 

@@ -22,12 +22,6 @@ namespace SITQnAAPIServiceADFS.Controllers
         static string key = ConfigurationManager.AppSettings["QnAMakerKey"];
         //kb id: 3fd5349a-7f39-4599-bbb2-6f3e041703b4
 
-        [HttpGet]
-        public string GetAll()
-        {
-            return "hello k";
-        }
-
 
         [HttpPatch]
         [Route("qna/{kbid}")]
@@ -50,9 +44,6 @@ namespace SITQnAAPIServiceADFS.Controllers
                 String state = fields["operationState"];
                 if (state.CompareTo("Running") == 0 || state.CompareTo("NotStarted") == 0)
                 {
-                    // QnA Maker is still updating the knowledge base. The thread is
-                    // paused for a number of seconds equal to the Retry-After
-                    // header value, and then the loop continues.
                     var wait = response.headers.GetValues("Retry-After").First();
                     Console.WriteLine("Waiting " + wait + " seconds...");
                     Thread.Sleep(Int32.Parse(wait) * 1000);
@@ -83,17 +74,7 @@ namespace SITQnAAPIServiceADFS.Controllers
             return await Get(uri);
         }
 
-        public struct Response
-        {
-            public HttpResponseHeaders headers;
-            public string response;
-
-            public Response(HttpResponseHeaders headers, string response)
-            {
-                this.headers = headers;
-                this.response = response;
-            }
-        }
+       
         async static Task<Response> Patch(string uri, string body)
         {
             using (var client = new HttpClient())
