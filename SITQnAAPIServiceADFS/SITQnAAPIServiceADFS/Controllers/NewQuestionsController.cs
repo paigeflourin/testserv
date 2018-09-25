@@ -31,12 +31,10 @@ namespace SITQnAAPIServiceADFS.Controllers
             CloudTable table = tableClient.GetTableReference("NewQuestions");
             table.CreateIfNotExists();
 
-            TableQuery<NewQuestionsEntity> query = new TableQuery<NewQuestionsEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "SIT New Questions"));
+            TableQuery<NewQuestionsEntity> query = new TableQuery<NewQuestionsEntity>();//.Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "SIT New Questions"));
 
             foreach (NewQuestionsEntity entity in table.ExecuteQuery(query))
             {
-                Console.WriteLine("{0}, {1}\t{2}\t{3}", entity.PartitionKey, entity.RowKey,
-                    entity.PostedDate, entity.PostedBy);
                 _records.Add(entity);
             }
 

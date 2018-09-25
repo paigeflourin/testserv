@@ -227,3 +227,4 @@ C:\Users\ptangalin\Work_\personal website\qna\testserv\SITQnAAPIServiceADFS\SITQ
 C:\Users\ptangalin\Work_\personal website\qna\testserv\SITQnAAPIServiceADFS\SITQnAAPIServiceADFS\bin\roslyn\vbc.rsp
 C:\Users\ptangalin\Work_\personal website\qna\testserv\SITQnAAPIServiceADFS\SITQnAAPIServiceADFS\bin\roslyn\VBCSCompiler.exe
 C:\Users\ptangalin\Work_\personal website\qna\testserv\SITQnAAPIServiceADFS\SITQnAAPIServiceADFS\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\ptangalin\Work_\personal website\qna\testserv\SITQnAAPIServiceADFS\SITQnAAPIServiceADFS\obj\Debug\SITQnAAPIServiceADFS.csprojAssemblyReference.cache
