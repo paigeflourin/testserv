@@ -23,6 +23,26 @@ namespace SITQnAAPIServiceADFS.Controllers
         //kb id: 3fd5349a-7f39-4599-bbb2-6f3e041703b4
 
 
+        [HttpGet]
+        [Route("qna/{kbid}")]
+        public async Task<string> GetAllKB([FromUri] string kbid, [FromBody] RemoteStreamInfo env)
+        {
+            var method_with_id = String.Format(method, kbid, env);
+            var uri = host + service + method_with_id;
+            Console.WriteLine("Calling " + uri + ".");
+
+            using (var client = new HttpClient())
+            using (var request = new HttpRequestMessage())
+            {
+                request.Method = HttpMethod.Get;
+                request.RequestUri = new Uri(uri);
+                request.Headers.Add("Ocp-Apim-Subscription-Key", key);
+
+                var response = await client.SendAsync(request);
+                return await response.Content.ReadAsStringAsync();
+            }
+        }
+
         [HttpPatch]
         [Route("qna/{kbid}")]
         public async Task<Response> Updatekb([FromUri]string kbid, HttpRequestMessage new_kb)
