@@ -24,10 +24,13 @@ namespace SITQnAAPIServiceADFS.Controllers
 
 
         [HttpGet]
-        [Route("qna/{kbid}")]
-        public async Task<string> GetAllKB([FromUri] string kbid, [FromBody] RemoteStreamInfo env)
+        [Route("qna/{kbid}/{env}")]
+        public async Task<string> GetAllKB([FromUri] string kbid, [FromUri] string env)
         {
-            var method_with_id = String.Format(method, kbid, env);
+            string getmethod = "/knowledgebases/{0}/{1}/qna/";
+            //string testEnv = "test";
+
+            var method_with_id = String.Format(getmethod, kbid, env);
             var uri = host + service + method_with_id;
             Console.WriteLine("Calling " + uri + ".");
 

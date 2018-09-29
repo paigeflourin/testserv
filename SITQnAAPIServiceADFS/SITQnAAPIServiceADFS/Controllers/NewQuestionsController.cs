@@ -20,8 +20,8 @@ namespace SITQnAAPIServiceADFS.Controllers
 
 
         [HttpGet]
-        [Route("allquestions")]
-        public List<NewQuestionsEntity> GetRecords()
+        [Route("allquestions/{division}")]
+        public List<NewQuestionsEntity> GetRecords([FromUri] string division)
         {
             List<NewQuestionsEntity> _records = new List<NewQuestionsEntity>();
 
@@ -31,7 +31,7 @@ namespace SITQnAAPIServiceADFS.Controllers
             CloudTable table = tableClient.GetTableReference("NewQuestions");
             table.CreateIfNotExists();
 
-            TableQuery<NewQuestionsEntity> query = new TableQuery<NewQuestionsEntity>();//.Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, "SIT New Questions"));
+            TableQuery<NewQuestionsEntity> query = new TableQuery<NewQuestionsEntity>().Where(TableQuery.GenerateFilterCondition("PartitionKey", QueryComparisons.Equal, division));
 
             foreach (NewQuestionsEntity entity in table.ExecuteQuery(query))
             {
